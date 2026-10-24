@@ -3,13 +3,13 @@ const WA="573103024205";
 /* Redes sociales: reemplaza cada dirección por el enlace de tu perfil */
 const SOCIAL={ig:"https://www.instagram.com/",fb:"https://www.facebook.com/",tt:"https://www.tiktok.com/"};
 const ADMIN_PIN="motola2026";
-const C={mostaza:"#E2A21E",teja:"#A9381C",bosque:"#0E3B24",oliva:"#6E6A2C",tinta:"#1B2A1F"};
-const COLORS={"Mostaza":"#E2A21E","Teja":"#A9381C","Verde bosque":"#0E3B24","Oliva":"#6E6A2C","Crema":"#EFE1BC","Tinta":"#2A2418","Arena":"#C9A877","Vino":"#6E2A2A"};
+const C={mostaza:"#D4A02A",teja:"#6B4226",bosque:"#2F5233",oliva:"#C49A6C",tinta:"#2B2725"};
+const COLORS={"Mostaza":"#D4A02A","Teja":"#6B4226","Verde bosque":"#2F5233","Oliva":"#C49A6C","Crema":"#EFE1BC","Tinta":"#2A2418","Arena":"#C9A877","Vino":"#6E2A2A"};
 const COLLECTIONS=[
-  {id:"raices",name:"Raíces",bg:"#A9381C",soft:"#F1DED6",desc:"Para quienes no olvidan de dónde vienen: plumas, soles y símbolos ancestrales bordados en tonos de barro.",pat:"sol"},
-  {id:"tropico",name:"Trópico",bg:"#0E3B24",soft:"#DCE7DE",desc:"El calor de la tarde y el verde del monte. Ligeras y frescas para vivir la tierra caliente.",pat:"zig"},
-  {id:"calle",name:"Calle Retro",bg:"#B07A0C",soft:"#F7E6B8",desc:"La nostalgia de los 90 hecha gorra: trucker y snapback con puntos, franjas y actitud de barrio.",pat:"dots"},
-  {id:"paramo",name:"Páramo",bg:"#6E6A2C",soft:"#E7E6D3",desc:"Abrigo para la tierra fría en lana y pana, con los tonos del frailejón y la niebla de la montaña.",pat:"tri"}
+  {id:"raices",name:"Raíces",bg:"#6B4226",soft:"#F1E6DA",desc:"Para quienes no olvidan de dónde vienen: plumas, soles y símbolos ancestrales bordados en tonos de barro.",pat:"sol"},
+  {id:"tropico",name:"Trópico",bg:"#2F5233",soft:"#DCE7DE",desc:"El calor de la tarde y el verde del monte. Ligeras y frescas para vivir la tierra caliente.",pat:"zig"},
+  {id:"calle",name:"Calle Retro",bg:"#A97A14",soft:"#F7EDD3",desc:"La nostalgia de los 90 hecha gorra: trucker y snapback con puntos, franjas y actitud de barrio.",pat:"dots"},
+  {id:"paramo",name:"Páramo",bg:"#6F6B67",soft:"#ECEAE7",desc:"Abrigo para la tierra fría en lana y pana, con los tonos del frailejón y la niebla de la montaña.",pat:"tri"}
 ];
 const SEED_PRODUCTS=[
  ["raices","PM-RA-01","Gorra Pluma Sagrada",89000,12,["Teja","Mostaza","Crema"]],
@@ -233,18 +233,18 @@ function renderAdmin(){
   const k30=dayKey(d30);const v30=Object.entries(S.visits).filter(([k])=>k>k30).reduce((a,[,v])=>a+v,0);
   const conv=v30?recent.length/v30*100:0;const low=S.products.filter(p=>p.stock<=3).length;
   $("#kpis").innerHTML=[
-    ["Visitas",v30.toLocaleString("es-CO"),`Hoy: ${S.visits[dayKey(now)]||0}`,"#0E3B24"],
-    ["Pedidos",recent.length,`Conversión ${conv.toFixed(1).replace(".",",")} %`,"#A9381C"],
-    ["Ventas",cop(rev),`${units} gorras vendidas`,"#E2A21E"],
-    ["Productos",S.products.length,`${low} con 3 o menos unidades`,"#6E6A2C"]
+    ["Visitas",v30.toLocaleString("es-CO"),`Hoy: ${S.visits[dayKey(now)]||0}`,"#2F5233"],
+    ["Pedidos",recent.length,`Conversión ${conv.toFixed(1).replace(".",",")} %`,"#6B4226"],
+    ["Ventas",cop(rev),`${units} gorras vendidas`,"#D4A02A"],
+    ["Productos",S.products.length,`${low} con 3 o menos unidades`,"#C49A6C"]
   ].map(([l,v,s,c])=>`<div class="kpi" style="--c:${c}"><small>${l}</small><b>${v}</b><span>${s}</span></div>`).join("");
 
   const W=640,H=240,pl=40,pb=34,pt=20,max=Math.max(...days.map(d=>d[1]),1);const top=Math.ceil(max/50)*50;
   const bw=(W-pl-10)/days.length;const y=v=>pt+(H-pt-pb)*(1-v/top);
-  let g="";for(let t=0;t<=top;t+=top/4){g+=`<line x1="${pl}" x2="${W-6}" y1="${y(t)}" y2="${y(t)}" stroke="#1B2A1F" stroke-opacity=".08"/><text x="${pl-6}" y="${y(t)+4}" text-anchor="end" font-size="11" fill="#5C5842" font-family="IBM Plex Mono,monospace">${t}</text>`}
+  let g="";for(let t=0;t<=top;t+=top/4){g+=`<line x1="${pl}" x2="${W-6}" y1="${y(t)}" y2="${y(t)}" stroke="#2B2725" stroke-opacity=".08"/><text x="${pl-6}" y="${y(t)+4}" text-anchor="end" font-size="11" fill="#6F6B67" font-family="IBM Plex Mono,monospace">${t}</text>`}
   const bars=days.map(([d,v],i)=>{const x=pl+i*bw+4,last=i===days.length-1,we=d.getDay()===0||d.getDay()===6;
-    return `<rect x="${x}" y="${y(v)}" width="${bw-8}" height="${y(0)-y(v)}" rx="3" fill="${last?"#A9381C":we?"#E2A21E":"#0E3B24"}"><title>${d.toLocaleDateString("es-CO",{weekday:"long",day:"numeric",month:"short"})}: ${v} visitas</title></rect>${last?`<text x="${x+(bw-8)/2}" y="${y(v)-6}" text-anchor="middle" font-size="12" font-weight="600" fill="#A9381C" font-family="IBM Plex Mono,monospace">${v}</text>`:""}<text x="${x+(bw-8)/2}" y="${H-pb+16}" text-anchor="middle" font-size="10.5" fill="#5C5842" font-family="IBM Plex Mono,monospace">${d.getDate()}</text>`}).join("");
-  $("#visitsChart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Visitas diarias de los últimos 14 días">${g}${bars}<line x1="${pl}" x2="${W-6}" y1="${y(0)}" y2="${y(0)}" stroke="#1B2A1F" stroke-width="1.5"/></svg><div class="legend" style="margin-top:8px"><span><i style="background:#0E3B24"></i>Entre semana</span><span><i style="background:#E2A21E"></i>Fin de semana</span><span><i style="background:#A9381C"></i>Hoy</span></div>`;
+    return `<rect x="${x}" y="${y(v)}" width="${bw-8}" height="${y(0)-y(v)}" rx="3" fill="${last?"#6B4226":we?"#D4A02A":"#2F5233"}"><title>${d.toLocaleDateString("es-CO",{weekday:"long",day:"numeric",month:"short"})}: ${v} visitas</title></rect>${last?`<text x="${x+(bw-8)/2}" y="${y(v)-6}" text-anchor="middle" font-size="12" font-weight="600" fill="#6B4226" font-family="IBM Plex Mono,monospace">${v}</text>`:""}<text x="${x+(bw-8)/2}" y="${H-pb+16}" text-anchor="middle" font-size="10.5" fill="#6F6B67" font-family="IBM Plex Mono,monospace">${d.getDate()}</text>`}).join("");
+  $("#visitsChart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Visitas diarias de los últimos 14 días">${g}${bars}<line x1="${pl}" x2="${W-6}" y1="${y(0)}" y2="${y(0)}" stroke="#2B2725" stroke-width="1.5"/></svg><div class="legend" style="margin-top:8px"><span><i style="background:#2F5233"></i>Entre semana</span><span><i style="background:#D4A02A"></i>Fin de semana</span><span><i style="background:#6B4226"></i>Hoy</span></div>`;
 
   const byCol=COLLECTIONS.map(c=>{let u=0,r=0;recent.forEach(o=>o.items.forEach(i=>{const p=P(i.ref);if(p&&p.col===c.id){u+=i.qty;r+=i.qty*i.price}}));return{c,u,r}});
   const mr=Math.max(...byCol.map(x=>x.r),1);
@@ -270,6 +270,12 @@ $("#invTable").addEventListener("change",e=>{
   save();renderCatalog();renderColCards();renderCart();renderAdmin();
 });
 
+(function(){const v=document.getElementById("bgvid");if(!v)return;
+  const rm=matchMedia("(prefers-reduced-motion: reduce)");
+  const sync=()=>{if(rm.matches){v.pause()}else{v.muted=true;const p=v.play();if(p&&p.catch)p.catch(()=>{})}};
+  sync();rm.addEventListener&&rm.addEventListener("change",sync);
+  document.addEventListener("visibilitychange",()=>{if(!document.hidden&&!rm.matches)v.play().catch(()=>{})});
+})();
 function renderAll(){renderColCards();renderCatalog();renderCart();renderAdmin()}
 renderAll();showView("inicio");
 (function(){const h=(location.hash||"").slice(1);if(h==="admin")openAdmin();else if(h&&document.getElementById(h))goTo(h)})();

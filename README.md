@@ -11,11 +11,13 @@ index.html                 Página principal (Inicio, Catálogo, Contáctenos, P
 assets/
   css/styles.css           Estilos, colores y degradados
   js/app.js                Catálogo, carrito, pedidos, contacto y panel admin
-  img/logo-sello.webp      Sello circular (inicio)
-  img/logo-sello.png       Sello para la vista previa al compartir el enlace
+  img/mascota.webp         Ilustración principal del inicio
+  img/fondo-inicio.jpg     Imagen fija mientras carga el video
+  img/logo-sello.png       Sello circular para la vista previa al compartir
   img/logo-letras.webp     Logo en letras (encabezado y pie de página)
   img/fondo-patron.webp    Fondo geométrico de los banners
   img/favicon.png          Icono de la pestaña del navegador
+  video/fondo-inicio.mp4   Video de fondo (marca de agua) del inicio, en bucle y sin sonido
 ```
 
 ## Cómo subirlo a GitHub Pages
@@ -42,6 +44,10 @@ Para actualizar el sitio más adelante, sube de nuevo los archivos que cambiaste
 | Nombres y descripciones de las colecciones | lista `COLLECTIONS` |
 
 Si cambias `SEED_PRODUCTS`, sube también el valor de `KEY` (por ejemplo `pm_store_v3`). Así los navegadores que ya visitaron el sitio cargan los datos nuevos.
+
+## Video de fondo
+
+El video del inicio se reproduce en bucle, sin sonido y con baja opacidad. Para cambiarlo, reemplaza `assets/video/fondo-inicio.mp4` por otro MP4 con el mismo nombre. Para hacerlo más o menos visible, ajusta `opacity` en la regla `.bgvid` de `assets/css/styles.css`. Si el visitante tiene activada la opción de reducir movimiento, el video queda en pausa.
 
 ## Límites
 
